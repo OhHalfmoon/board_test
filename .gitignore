@@ -1,7 +1,7 @@
 src/main/webapp/resources/vendors
 jdbc.properties
 mail.properties
-src/test/java/co/poetrypainting/persistence/JDBCTests.java
+src/test/java/com/ohalfmoon/persistence/JDBCTests.java
 
 # Created by https://www.toptal.com/developers/gitignore/api/maven,intellij,eclipse,java,svn
 # Edit at https://www.toptal.com/developers/gitignore?templates=maven,intellij,eclipse,java,svn
