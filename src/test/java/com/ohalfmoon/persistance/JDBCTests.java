@@ -26,7 +26,7 @@ public class JDBCTests {
 		
 		try(Connection connection =
 				DriverManager.getConnection(
-						"",
+						"jdbc:oracle:",
 						"",
 						"")) {
 			log.info(connection);
