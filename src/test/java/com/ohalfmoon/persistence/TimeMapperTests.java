@@ -1,4 +1,4 @@
-package com.ohalfmoon.persistance;
+package com.ohalfmoon.persistence;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

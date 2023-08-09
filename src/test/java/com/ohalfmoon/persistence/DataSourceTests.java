@@ -1,4 +1,4 @@
-package com.ohalfmoon.persistance;
+package com.ohalfmoon.persistence;
 
 import static org.junit.Assert.fail;
 
