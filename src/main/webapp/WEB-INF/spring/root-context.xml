@@ -28,5 +28,5 @@
 	<mybatis-spring:scan base-package="com.ohalfmoon.mapper"/>
 	
 	<context:component-scan base-package="com.ohalfmoon.sample"></context:component-scan>
-		
+	<context:component-scan base-package="com.ohalfmoon.service"></context:component-scan>	
 </beans>
