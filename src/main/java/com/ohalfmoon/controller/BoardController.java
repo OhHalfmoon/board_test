@@ -43,6 +43,11 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	@GetMapping("/register")
+	public void register() {
+		
+	}
+	
 	@PostMapping("/modify")
 	public String modify(BoardVO vo, RedirectAttributes rttr) {
 		log.info("modify: "+ vo);
