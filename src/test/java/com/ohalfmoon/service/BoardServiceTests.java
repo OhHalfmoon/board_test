@@ -64,7 +64,7 @@ public class BoardServiceTests {
 	
 	@Test
 	public void testDelete() {
-		log.info("REMOVE RESULT: " + service.remove(62L));
+		log.info("REMOVE RESULT: " + service.remove(68L));
 	}
 
 }
