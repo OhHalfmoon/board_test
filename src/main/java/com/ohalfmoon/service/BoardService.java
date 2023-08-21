@@ -23,6 +23,9 @@ public interface BoardService {
 	//삭제
 	public boolean remove(Long bno);
 	
+	//전체 데이터의 개수
+	public int getTotal(Criteria cri);
+	
 	
 
 }
