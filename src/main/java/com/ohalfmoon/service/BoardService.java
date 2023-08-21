@@ -3,6 +3,7 @@ package com.ohalfmoon.service;
 import java.util.List;
 
 import com.ohalfmoon.domain.BoardVO;
+import com.ohalfmoon.domain.Criteria;
 
 public interface BoardService {
 	
@@ -10,7 +11,8 @@ public interface BoardService {
 	public BoardVO get(Long bno);
 	
 	//리스트 조회
-	public List<BoardVO> getList();
+//	public List<BoardVO> getList();
+	public List<BoardVO> getList(Criteria cri);
 	
 	// 등록
 	public void register(BoardVO vo);

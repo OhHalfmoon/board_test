@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.ohalfmoon.domain.BoardVO;
+import com.ohalfmoon.domain.Criteria;
 import com.ohalfmoon.mapper.BoardMapper;
 
 import lombok.AllArgsConstructor;
@@ -24,12 +25,21 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.read(bno);
 	}
 
+//	@Override
+//	public List<BoardVO> getList() {
+//		// TODO Auto-generated method stub
+//		log.info("getList......");
+//		return mapper.getList();
+//	}
+	
+	
 	@Override
-	public List<BoardVO> getList() {
+	public List<BoardVO> getList(Criteria cri) {
 		// TODO Auto-generated method stub
-		log.info("getList......");
-		return mapper.getList();
-	}
+		log.info("get List with criteria" + cri);
+		return mapper.getListWithPaging(cri);
+	}	
+	
 
 	@Override
 	public void register(BoardVO vo) {
@@ -52,6 +62,8 @@ public class BoardServiceImpl implements BoardService {
 		log.info("remove......" + bno);
 		return mapper.delete(bno) == 1;
 	}
+
+
 
 	
 }

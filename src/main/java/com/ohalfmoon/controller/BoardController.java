@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ohalfmoon.domain.BoardVO;
+import com.ohalfmoon.domain.Criteria;
 import com.ohalfmoon.service.BoardService;
 
 import lombok.AllArgsConstructor;
@@ -29,11 +30,16 @@ public class BoardController {
 		model.addAttribute("board", boardService.get(bno));
 	}
 	
+//	@GetMapping("/list")
+//	public void list(Model model) {
+//		log.info("list");
+//		model.addAttribute("list", boardService.getList());
+//	}
 	@GetMapping("/list")
-	public void list(Model model) {
-		log.info("list");
-		model.addAttribute("list", boardService.getList());
-	}
+	public void list(Criteria cri, Model model) {
+		log.info("list: " + cri);
+		model.addAttribute("list", boardService.getList(cri));
+	}	
 	
 	@PostMapping("/register")
 	public String register(BoardVO vo, RedirectAttributes rttr) {
