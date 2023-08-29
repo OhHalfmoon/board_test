@@ -60,7 +60,27 @@ public class BoardController {
 		
 	}
 	
+
 	@PostMapping("/modify")
+	public String modify(BoardVO vo, Criteria cri,RedirectAttributes rttr) {
+		log.info("modify: "+ vo);
+		if(boardService.modify(vo)) {
+			rttr.addFlashAttribute("result", "success");
+		}		
+
+		return "redirect:/board/list" + cri.getListLink();
+	}
+
+	@PostMapping("/remove")
+	public String remove(@RequestParam("bno") Long bno, Criteria cri ,RedirectAttributes rttr) {
+		log.info("removr: " + bno);
+		if(boardService.remove(bno)) {
+			rttr.addFlashAttribute("result", "succeess");
+		}		
+		return "redirect:/board/list" + cri.getListLink();
+	}	
+
+	/*	@PostMapping("/modify")
 	public String modify(BoardVO vo, @ModelAttribute("cri") Criteria cri,RedirectAttributes rttr) {
 		log.info("modify: "+ vo);
 		if(boardService.modify(vo)) {
@@ -69,19 +89,24 @@ public class BoardController {
 		
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/board/list";
-	}
+	}*/	
 	
-	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri ,RedirectAttributes rttr) {
+/*	@PostMapping("/remove")
+	public String remove(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri ,RedirectAttributes rttr) {	
 		log.info("removr: " + bno);
 		if(boardService.remove(bno)) {
 			rttr.addFlashAttribute("result", "succeess");
 		}
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		rttr.addAttribute("type", cri.getType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/board/list";
-	}
+	}*/
+	
 
 }
