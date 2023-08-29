@@ -10,21 +10,46 @@
  		]]>
  	</select>
  	
+ 	<sql id="criteria">
+ 		<trim	prefix="(" suffix=") AND " prefixOverrides="OR">
+ 			<foreach item="type" collection="typeArr">
+ 				<trim prefix="OR">
+ 					<choose>
+ 						<when test="type == 'T'.toString()">title like '%'||#{keyword}||'%'</when>
+ 						<when test="type == 'C'.toString()">content like '%'||#{keyword}||'%'</when>
+ 						<when test="type == 'W'.toString()">writer like '%'||#{keyword}||'%'</when> 					
+ 					</choose>
+ 				</trim>
+ 			</foreach> 		
+ 		</trim>
+ 	</sql>
+ 	
  	<select id="getListWithPaging" resultType="com.ohalfmoon.domain.BoardVO">
  	<![CDATA[
  	SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE
  	FROM
  		(
  		SELECT /*+INDEX_DESC(TBL_BOARD PK_BOARD) */
- 		ROWNUM RN, BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE
- 		FROM TBL_BOARD WHERE ROWNUM <= #{pageNum} * #{amount}
+ 			ROWNUM RN, BNO, TITLE, CONTENT, WRITER, REGDATE, UPDATEDATE
+ 		FROM 
+ 			TBL_BOARD 
+ 		WHERE 
+ 	]]>
+ 	
+ 	<include refid="criteria"></include>	
+
+ 	<![CDATA[
+ 		ROWNUM <= #{pageNum} * #{amount}
  		)
  	WHERE RN > (#{pageNum} -1) * #{amount}		
  	]]>
  	</select>
  	
  	<select id="getTotalCount" resultType="int">
- 		SELECT COUNT(*) FROM TBL_BOARD WHERE BNO > 0
+ 		SELECT COUNT(*) FROM TBL_BOARD 
+ 		WHERE 
+ 		<include refid="criteria"></include>
+ 		BNO > 0
  	</select>
  	
  	<insert id="insert">
