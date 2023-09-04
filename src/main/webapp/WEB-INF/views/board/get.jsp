@@ -60,6 +60,58 @@
             <!-- /.row -->
 
 
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+
+<Script type="text/javascript">
+$(document).ready(function() {
+	console.log(replyService)
+});
+</Script>
+
+<script>
+console.log("==========");
+console.log("JS TEST");
+
+var bnoValue = '<c:out value="${board.bno}"/>';
+//for replyService add test
+/* replyService.add(
+	{ reply:"JS TEST", replyer:"tester", bno:bnoValue },
+	function(result) {
+		alert("RESULT: " + result);
+	}
+);  */
+
+//for replyService getList test
+replyService.getList({bno:bnoValue, page:1}, function(list) {
+	for(var i = 0, len = list.length||0; i < len; i++) {
+		console.log(list[i]);
+	}
+});
+
+//for replyService remove test
+/* replyService.remove(13, function(count) {
+	console.log(count);
+	if (count === "success") {
+		alert("REMOVED");
+	}
+}, function(err) {
+	alert("ERROR...");
+}); */
+
+//for replyService update test
+/* replyService.update({
+	rno : 14,
+	reply : "Modified Reply"
+}, function(result) {
+	alert("수정완료")	
+}); */
+
+//for replyService get test
+/* replyService.get(14, function(data) {
+	console.log(data);
+}); */
+</script>
+
 <script type="text/javascript">
 $(document).ready(function() {
 	var operForm = $("#operForm");
