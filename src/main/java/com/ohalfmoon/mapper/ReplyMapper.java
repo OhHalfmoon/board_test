@@ -15,6 +15,8 @@ public interface ReplyMapper {
 	
 	public int delete (Long rno); // 댓글 삭제
 	
+	public int deleteByBno (Long bno); // 글번호를 통한 댓글 삭제
+	
 	public int update(ReplyVO reply); // 댓글 수정
 	
 	public List<ReplyVO> getListWithPaging(@Param("cri") Criteria cri, @Param("bno") Long bno); //페이징이 추가된 댓글 목록

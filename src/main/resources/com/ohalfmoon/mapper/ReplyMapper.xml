@@ -18,6 +18,10 @@
  		DELETE FROM TBL_REPLY WHERE RNO = #{rno}
  	</delete>
  	
+ 	<delete id="deleteByBno">
+ 		DELETE FROM TBL_REPLY WHERE BNO = #{bno}
+ 	</delete>
+ 	
  	<update id="update">
  		UPDATE TBL_REPLY SET REPLY = #{reply}, UPDATEDATE = SYSDATE WHERE RNO = #{rno}
  	</update>

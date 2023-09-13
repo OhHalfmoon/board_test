@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.ohalfmoon.domain.BoardVO;
 import com.ohalfmoon.domain.Criteria;
 import com.ohalfmoon.mapper.BoardMapper;
+import com.ohalfmoon.mapper.ReplyMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -17,6 +18,7 @@ import lombok.extern.log4j.Log4j;
 public class BoardServiceImpl implements BoardService {
 	
 	private BoardMapper mapper;
+	private ReplyMapper replyMapper;
 
 	@Override
 	public BoardVO get(Long bno) {
@@ -60,6 +62,9 @@ public class BoardServiceImpl implements BoardService {
 	public boolean remove(Long bno) {
 		// TODO Auto-generated method stub
 		log.info("remove......" + bno);
+		if (replyMapper.getCountByBno(bno) > 0) {
+			replyMapper.deleteByBno(bno);
+		}		
 		return mapper.delete(bno) == 1;
 	}
 
