@@ -55,8 +55,9 @@ $(document).ready(function() {
 			contentType: false,
 			data: formData,
 			type: 'POST',
+			dataType: 'json',
 			success: function(result) {
-				alert("uploaded");
+				console.log(result);
 			}
 		});
 	});
