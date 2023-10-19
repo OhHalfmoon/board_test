@@ -3,6 +3,8 @@ package com.ohalfmoon.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
 @Log4j
-public class UploadExController {
+public class UploadController {
 	
 	private String getFolder() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -164,6 +166,27 @@ public class UploadExController {
 		FileSystemResource resource = new FileSystemResource("C:\\upload\\" + fileName);
 		log.info("resource: " + resource);
 		return null;
+	}
+	
+	@PostMapping("/deleteFile")
+	@ResponseBody
+	public ResponseEntity<String> deleteFile(String fileName, String type) {
+		log.info("deleteFile : " + fileName);
+		File file;
+		try {
+			file = new File("c:\\upload\\" + URLDecoder.decode(fileName, "UTF-8"));
+			file.delete();
+			if (type.equals("image")) {
+				String largeFileName = file.getAbsolutePath().replace("s_", "");
+				log.info("largeFileName : " + largeFileName);
+				file = new File(largeFileName);
+				file.delete();
+			}
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 	
 
