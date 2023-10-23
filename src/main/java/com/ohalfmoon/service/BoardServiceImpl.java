@@ -2,23 +2,33 @@ package com.ohalfmoon.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ohalfmoon.domain.BoardVO;
 import com.ohalfmoon.domain.Criteria;
+import com.ohalfmoon.mapper.BoardAttachMapper;
 import com.ohalfmoon.mapper.BoardMapper;
 import com.ohalfmoon.mapper.ReplyMapper;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
 public class BoardServiceImpl implements BoardService {
 	
+	@Setter(onMethod_= @Autowired)
 	private BoardMapper mapper;
+
+	@Setter(onMethod_= @Autowired)
 	private ReplyMapper replyMapper;
+
+	@Setter(onMethod_= @Autowired)
+	private BoardAttachMapper attachMapper;
 
 	@Override
 	public BoardVO get(Long bno) {
@@ -42,13 +52,19 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getListWithPaging(cri);
 	}	
 	
-
+	@Transactional
 	@Override
 	public void register(BoardVO vo) {
 		// TODO Auto-generated method stub
 		log.info("register......" + vo);
 		mapper.insertSelectKey(vo);
-		
+		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
+			return;
+		}
+		vo.getAttachList().forEach(attach ->{
+			attach.setBno(vo.getBno());
+			attachMapper.insert(attach);
+		});
 	}
 
 	@Override

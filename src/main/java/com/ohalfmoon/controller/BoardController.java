@@ -50,6 +50,9 @@ public class BoardController {
 	@PostMapping("/register")
 	public String register(BoardVO vo, RedirectAttributes rttr) {
 		log.info("register: " + vo);
+		if (vo.getAttachList() != null) {
+			vo.getAttachList().forEach(attach -> log.info(attach));
+		}
 		boardService.register(vo);
 		rttr.addFlashAttribute("result", vo.getBno());
 		return "redirect:/board/list";
