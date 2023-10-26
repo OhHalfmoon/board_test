@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ohalfmoon.domain.BoardAttachVO;
 import com.ohalfmoon.domain.BoardVO;
 import com.ohalfmoon.domain.Criteria;
 import com.ohalfmoon.mapper.BoardAttachMapper;
@@ -91,7 +92,12 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.getTotalCount(cri);
 	}
 
-
+	@Override
+	public List<BoardAttachVO> getAttachList(Long bno) {
+		// TODO Auto-generated method stub
+		log.info("get Attach list by bno" + bno);
+		return attachMapper.findByBno(bno);
+	}
 
 	
 }

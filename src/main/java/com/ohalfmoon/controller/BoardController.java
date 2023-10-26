@@ -1,5 +1,10 @@
 package com.ohalfmoon.controller;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -8,8 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ohalfmoon.domain.BoardAttachVO;
 import com.ohalfmoon.domain.BoardVO;
 import com.ohalfmoon.domain.Criteria;
 import com.ohalfmoon.domain.PageDTO;
@@ -30,6 +37,14 @@ public class BoardController {
 	public void get(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("/get or modify");
 		model.addAttribute("board", boardService.get(bno));
+	}
+	
+	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno) {
+		log.info("getAttachList " + bno);
+		
+		return new ResponseEntity<>(boardService.getAttachList(bno), HttpStatus.OK);
 	}
 	
 //	@GetMapping("/list")
