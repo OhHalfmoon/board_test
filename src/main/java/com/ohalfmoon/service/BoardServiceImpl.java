@@ -74,14 +74,16 @@ public class BoardServiceImpl implements BoardService {
 		log.info("modify......" + vo);		
 		return mapper.update(vo) == 1;
 	}
-
+	
+	@Transactional
 	@Override
 	public boolean remove(Long bno) {
 		// TODO Auto-generated method stub
 		log.info("remove......" + bno);
 		if (replyMapper.getCountByBno(bno) > 0) {
 			replyMapper.deleteByBno(bno);
-		}		
+		}
+		attachMapper.deleteAll(bno);
 		return mapper.delete(bno) == 1;
 	}
 
