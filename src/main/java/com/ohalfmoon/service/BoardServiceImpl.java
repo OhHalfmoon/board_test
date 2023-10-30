@@ -67,12 +67,21 @@ public class BoardServiceImpl implements BoardService {
 			attachMapper.insert(attach);
 		});
 	}
-
+	@Transactional
 	@Override
 	public boolean modify(BoardVO vo) {
 		// TODO Auto-generated method stub
-		log.info("modify......" + vo);		
-		return mapper.update(vo) == 1;
+		log.info("modify......" + vo);	
+		attachMapper.deleteAll(vo.getBno());
+		boolean modifyResult = mapper.update(vo) == 1;
+		
+		if(modifyResult && vo.getAttachList() != null && vo.getAttachList().size() > 0) {
+			vo.getAttachList().forEach(attach -> {
+				attach.setBno(vo.getBno());
+				attachMapper.insert(attach);
+			});
+		}
+		return modifyResult;
 	}
 	
 	@Transactional
