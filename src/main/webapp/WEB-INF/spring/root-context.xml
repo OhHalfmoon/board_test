@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
@@ -28,5 +32,10 @@
 	<mybatis-spring:scan base-package="com.ohalfmoon.mapper"/>
 	
 	<context:component-scan base-package="com.ohalfmoon.sample"></context:component-scan>
-	<context:component-scan base-package="com.ohalfmoon.service"></context:component-scan>	
+	<context:component-scan base-package="com.ohalfmoon.service"></context:component-scan>
+	
+	<context:component-scan base-package="com.ohalfmoon.task"></context:component-scan>
+	<task:annotation-driven/>
+	
+		
 </beans>
