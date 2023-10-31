@@ -5,6 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="customAccessDenied" class="com.ohalfmoon.security.CustomAccessDeniedHandler"></bean>
+	<bean id="customLoginSuccess" class="com.ohalfmoon.security.CustomLoginSuccessHandler"></bean>
 	
 	<security:http>
 		<security:intercept-url pattern="/sample/all" access="permitAll" />
@@ -14,7 +15,8 @@
 		<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')" />
 		<!-- <security:access-denied-handler error-page="/accessError"/> -->
 		<security:access-denied-handler ref="customAccessDenied"/>
-		<security:form-login login-page="/customLogin" />
+		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+		<security:logout logout-url="/customLogout" invalidate-session="true" />
 	</security:http>
 	
 	<security:authentication-manager>
