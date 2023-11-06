@@ -2,10 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<bean id="customAccessDenied" class="com.ohalfmoon.security.CustomAccessDeniedHandler"></bean>
 	<bean id="customLoginSuccess" class="com.ohalfmoon.security.CustomLoginSuccessHandler"></bean>
+	<bean id="customPasswordEncoder" class="com.ohalfmoon.security.CustomNoOpPasswordEncoder"></bean>
 	
 	<security:http>
 		<security:intercept-url pattern="/sample/all" access="permitAll" />
@@ -21,10 +23,14 @@
 	
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:user-service>
+			<security:jdbc-user-service data-source-ref="dataSource" />
+			<security:password-encoder ref="customPasswordEncoder"/>
+			
+<!-- 			<security:user-service>
 				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER" />
 				<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN" />
-			</security:user-service>
+			</security:user-service> -->
+			
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
