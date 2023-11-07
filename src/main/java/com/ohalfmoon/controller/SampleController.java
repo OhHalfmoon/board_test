@@ -154,7 +154,7 @@ public class SampleController {
 			});
 		}
 		
-		@GetMapping("/all")
+/*		@GetMapping("/all")
 		public void doAll() {
 			log.info(" all can access ");
 		}
@@ -167,5 +167,5 @@ public class SampleController {
 		@GetMapping("/admin")
 		public void doAdmin() {
 			log.info("admin only");
-		}
+		}*/
 }
