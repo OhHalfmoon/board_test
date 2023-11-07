@@ -59,6 +59,11 @@
 		</init-param>
 	</filter>
 	
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter>
+	
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
 		<servlet-name>appServlet</servlet-name>
