@@ -84,19 +84,20 @@ public class BoardController {
 		
 	}
 	
-
+	@PreAuthorize("principal.username == #board.writer")
 	@PostMapping("/modify")
-	public String modify(BoardVO vo, Criteria cri,RedirectAttributes rttr) {
-		log.info("modify: "+ vo);
-		if(boardService.modify(vo)) {
+	public String modify(BoardVO board, Criteria cri,RedirectAttributes rttr) {
+		log.info("modify: "+ board);
+		if(boardService.modify(board)) {
 			rttr.addFlashAttribute("result", "success");
 		}		
 
 		return "redirect:/board/list" + cri.getListLink();
 	}
-
+	
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove")
-	public String remove(@RequestParam("bno") Long bno, Criteria cri ,RedirectAttributes rttr) {
+	public String remove(@RequestParam("bno") Long bno, Criteria cri ,RedirectAttributes rttr, String writer) {
 		log.info("remove: " + bno);
 		List<BoardAttachVO> attachList = boardService.getAttachList(bno);
 		if(boardService.remove(bno)) {			
